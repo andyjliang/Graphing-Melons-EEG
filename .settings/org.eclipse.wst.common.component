@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Melon_Design_Challenge">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/build"/>
+        <property name="context-root" value="Melon_Design_Challenge"/>
+        <property name="java-output-path" value="/Melon_Design_Challenge/build/classes"/>
+    </wb-module>
+</project-modules>
