@@ -31,6 +31,9 @@
 		<script language="JavaScript" src="js/main.js"></script>
 </head>
 <body id="page-top" class="index">
+
+	<!-- Passing Server Data to JSON -->
+	
 	<script type="text/javascript">
 	var focusObj = []; 
 <%
@@ -41,7 +44,7 @@
 <%
 	}
 %>
-	var debugging;
+	var debuggingVar;
 	</script>
 
     <!-- Navigation -->
@@ -75,7 +78,7 @@
     </header>
     
     <!-- Main -->
-    <div class="spacer"> </div>
+    <div class="content">
 	  <div id="graph">
 		  <div data-bind="foreach: points">
 		  	
@@ -106,7 +109,7 @@
 		    	
 		  </div>
 	  
-	  	  <button data-bind="click: myFunc" >Debug</button>
 	 	</div>
+	 </div>
 </body>
 </html>

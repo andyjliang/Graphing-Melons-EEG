@@ -6,17 +6,14 @@ $(function(){
 	function ButtonViewModel(){
 		var self = this;
 		self.toggleBackground = function(){
-			$('header').toggleClass('clicked');
-			$('header').css('background-image', 'none');
-			$('.cover').each(function(){
-				$(this).toggleClass('hidden');
+			$('header').css({
+				'background-image': 'none',
+				'display': 'none'
+			});
+			$('.content').css({
+				'background-color': '#281B57',
+				'display': 'inline-block'
 			})
-			$('.content').removeClass('hidden');
-			$('.content').removeClass('running').delay(10).queue(function(next){
-				$(this).addClass('running');
-		        next();
-		    });
-		    return false;
 		}
 	}
 	
@@ -114,7 +111,7 @@ $(function(){
 	
 	$(document).ready(function() {
 		ko.applyBindings(new ButtonViewModel(), document.getElementById('graphButton'));
-		ko.applyBindings(new GraphViewModel(), document.getElementById('graph'));
+		ko.applyBindings(new GraphViewModel(), $('#graph')[0]);
 	});
 	
 });
