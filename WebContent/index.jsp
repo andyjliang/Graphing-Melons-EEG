@@ -12,7 +12,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	    <title>Melon</title>
+	    <title>Melon Design Challenge</title>
 	
 	    <!-- Bootstrap Core CSS -->
 	    <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -70,12 +70,43 @@
                 <div class="intro-lead-in cover">Think Brightly!</p></div>
                 <div class="intro-heading cover">See Focus</p></div>
                 <button id="graphButton" data-bind="click: toggleBackground" class="page-scroll btn btn-xl cover">view</button>
-            
-
-			    
-        
             </div>
         </div>
     </header>
+    
+    <!-- Main -->
+    <div class="spacer"> </div>
+	  <div id="graph">
+		  <div data-bind="foreach: points">
+		  	
+		  		<!-- Ball Structure -->
+		    	<div class="ball" data-bind="style: 
+		    		{
+		    			left: $parent.leftShiftInc($element),
+		    			bottom: $parent.bottomShiftInc($element, y), 
+		    			MozAnimationDelay: $index() + 's'
+		    		}">
+		        	<a href="#"><small data-bind="text: tooltip"></small></a>
+		        </div>
+		        
+		        <!-- Pulse Structure -->
+		        <div class="pulse" data-bind="style: 
+		        	{ 	
+		        		left: $parent.leftShiftInc($element),
+		        		bottom: $parent.bottomShiftInc($element, y), 
+		        		MozAnimationDelay: $index() + 's'
+		        	}"></div>
+		    	<div class="line" data-bind="style: 
+		    		{
+		    			left: $parent.leftShiftInc($element),
+		    			bottom: $parent.bottomShiftInc($element, y), 
+		    			MozAnimation:'move' + $index() + ' 1s ' + $index() + 's linear forwards',
+		    			transform: $parent.angle($index())
+		    		}" ></div>
+		    	
+		  </div>
+	  
+	  	  <button data-bind="click: myFunc" >Debug</button>
+	 	</div>
 </body>
 </html>
