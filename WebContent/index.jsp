@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Iterator"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
@@ -37,14 +38,22 @@
 	<script type="text/javascript">
 	var focusObj = []; 
 <%
-	Iterator<String> it = data.getSelectAttr().iterator();
+	Iterator<HashMap<String, String>> it = data.getSelectAttr().iterator();
+	HashMap<String, String> hm; 
 	while(it.hasNext()){
+		hm = it.next();
 %>
-		focusObj.push(<%=it.next()%>)
+		// retrieving & putting into JSON the variables:
+		// focus1, dataQuality, maxVoltage1, timestamp
+		focusObj.push({'focus1': <%=hm.get("focus1")%>, 
+						'dataQuality': <%=hm.get("dataQuality")%>, 
+						'maxVoltage1': <%=hm.get("maxVoltage1")%>, 
+						'timestamp': '<%=hm.get("timestamp")%>' 
+						});
 <%
 	}
 %>
-	var debuggingVar;
+	//debugger;
 	</script>
 
     <!-- Navigation -->
@@ -52,7 +61,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <a class="navbar-brand page-scroll" href="#page-top">Melon</a>
+                <a class="navbar-brand page-scroll" href="http://www.thinkmelon.com/">Melon</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -86,24 +95,24 @@
 		    	<div class="ball" data-bind="style: 
 		    		{
 		    			left: $parent.leftShiftInc($element),
-		    			bottom: $parent.bottomShiftInc($element, y), 
-		    			MozAnimationDelay: $index() + 's'
+		    			bottom: $parent.bottomShiftInc($element, focus1), 
+		    			MozAnimationDelay: $index() * .1 + 's'
 		    		}">
-		        	<a href="#"><small data-bind="text: tooltip"></small></a>
+		        	<a href="#"><small data-bind="text: timestamp"></small></a>
 		        </div>
 		        
 		        <!-- Pulse Structure -->
 		        <div class="pulse" data-bind="style: 
 		        	{ 	
 		        		left: $parent.leftShiftInc($element),
-		        		bottom: $parent.bottomShiftInc($element, y), 
-		        		MozAnimationDelay: $index() + 's'
+		        		bottom: $parent.bottomShiftInc($element, focus1), 
+		        		MozAnimationDelay: $index() * .1 + 's'
 		        	}"></div>
 		    	<div class="line" data-bind="style: 
 		    		{
 		    			left: $parent.leftShiftInc($element),
-		    			bottom: $parent.bottomShiftInc($element, y), 
-		    			MozAnimation:'move' + $index() + ' 1s ' + $index() + 's linear forwards',
+		    			bottom: $parent.bottomShiftInc($element, focus1), 
+		    			MozAnimation:'move' + $index() + ' .1s ' + $index() * .1 + 's linear forwards',
 		    			transform: $parent.angle($index())
 		    		}" ></div>
 		    	

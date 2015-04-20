@@ -19,35 +19,29 @@ $(function(){
 	
 	function GraphViewModel(){
 		var self = this;
+		// constants
+		self.stepWidth = 31;
+		self.scalingFactor = 200;
+		
+		// variables
 		self.ballShiftL = 0;
 		self.pulseShiftL = 0;
 		self.lineShiftL = 0;
-		self.stepWidth = 100;
-		self.points = ko.observableArray([
-			{y: 10, tooltip: 'one'},
-			{y: 110, tooltip: 'two'},
-			{y: 210, tooltip: 'three'},
-			{y: 210, tooltip: 'four'},
-			{y: 110, tooltip: 'five'},
-			{y: 10, tooltip: 'six'},
-			{y: 190, tooltip: 'seven'},
-			{y: 20, tooltip: 'eight'},
-			{y: 80, tooltip: 'nine'},
-			{y: 140, tooltip: 'ten'},
-			{y: 30, tooltip: 'eleven'},
-			{y: 95, tooltip: 'twelve'}
-		]);
+		
+		self.points = ko.observableArray(focusObj);
 		
 		self.angle = function(yInd){
+			// Wow I never though I would be using trig again
 			if (yInd +1 == this.points().length) return 0;
-			var h = this.points()[yInd+1].y - this.points()[yInd].y;
+			var h = self.scalingFactor * (this.points()[yInd+1].focus1 - this.points()[yInd].focus1);
 			self.setKeyFrameMoveLength(h, yInd);
 			var r = -(Math.atan(h/self.stepWidth)* (180/Math.PI));
 			return 'rotate(' + r + 'deg)';
 		}
 		
 		self.setKeyFrameMoveLength = function(h, yInd){
-			var hyp = Math.sqrt(h*h+10000);
+			var w = self.stepWidth;
+			var hyp = Math.sqrt(h*h+w*w);
 			var rule = "@-webkit-keyframes move" + yInd + " {0% { width:0px;} 100% { width:" + hyp + "px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5); }}"
 			var rule2 = "@-moz-keyframes move" + yInd + " {0% { width:0px;} 100% { width:" + hyp + "px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5); }}"
 			if(navigator.userAgent.indexOf("MSIE") > -1) document.styleSheets[0].insertRule(rule, 0);
@@ -77,6 +71,7 @@ $(function(){
 		
 		self.bottomShiftInc = function(el, bottomShift){
 			var returnEl; 
+			bottomShift = self.scalingFactor * bottomShift;
 			switch(el.className){
 				case 'ball':
 					returnEl = bottomShift - 5;
@@ -100,12 +95,12 @@ $(function(){
 			// }',1);
 		// }
 
-		self.myFunc = function(){
-			// document.styleSheets[0].cssRules[9].appendRule("0% { width:0px;}");
-			// document.styleSheets[0].cssRules[9].appendRule("100% { width:100px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5);}");
-			// document.styleSheets[0].insertRule(".line {transform: rotate(-40deg);}",3);
-			var k = 0; 
-		}
+//		self.myFunc = function(){
+//			// document.styleSheets[0].cssRules[9].appendRule("0% { width:0px;}");
+//			// document.styleSheets[0].cssRules[9].appendRule("100% { width:100px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5);}");
+//			// document.styleSheets[0].insertRule(".line {transform: rotate(-40deg);}",3);
+//			var k = 0; 
+//		}
 	}
 	
 	

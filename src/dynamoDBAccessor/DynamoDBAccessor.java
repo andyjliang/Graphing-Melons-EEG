@@ -1,6 +1,7 @@
 package dynamoDBAccessor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import com.amazonaws.util.json.JSONException;
@@ -25,11 +26,19 @@ public class DynamoDBAccessor {
 				null, "MelonPractice");
 	}
 	
-	public ArrayList<String> getSelectAttr() throws JSONException{
-		ArrayList<String> selectAttrs = new ArrayList<String>();
+	public ArrayList<HashMap<String, String>> getSelectAttr() throws JSONException{
+		ArrayList<HashMap<String, String>> selectAttrs = new ArrayList<HashMap<String, String>>();
+		JSONObject srcMap;
+		HashMap<String, String> destMap;
 		 Iterator<JSONObject> it = jsonData.iterator();
 		 while (it.hasNext()){
-			 selectAttrs.add((String)it.next().get("focus1"));
+			 srcMap = it.next();
+			 destMap = new HashMap<String, String>();
+			 destMap.put("focus1", (String) srcMap.get("focus1"));
+			 destMap.put("dataQuality", (String) srcMap.get("dataQuality"));
+			 destMap.put("maxVoltage1", (String) srcMap.get("maxVoltage1"));
+			 destMap.put("timestamp", (String) srcMap.get("timestamp"));
+			 selectAttrs.add(destMap);
 		 }
 		 return selectAttrs;
 	}

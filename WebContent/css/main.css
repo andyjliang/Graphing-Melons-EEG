@@ -3,7 +3,6 @@
 
 body {
     overflow-x: hidden;
-    font-size: 24px;
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
     webkit-tap-highlight-color: #fed136;
 }
@@ -31,6 +30,7 @@ h1,h2,h3,h4,h5,h6 {
 .navbar-default {
     border-color: transparent;
     background-color: #222;
+    font-size: 24px;
 }
 
 .navbar-default .navbar-brand {
