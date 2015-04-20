@@ -35,6 +35,7 @@ public class DynamoDBAccessor {
 			 srcMap = it.next();
 			 destMap = new HashMap<String, String>();
 			 destMap.put("focus1", (String) srcMap.get("focus1"));
+			 destMap.put("focus2", (String) srcMap.get("focus2"));
 			 destMap.put("dataQuality", (String) srcMap.get("dataQuality"));
 			 destMap.put("maxVoltage1", (String) srcMap.get("maxVoltage1"));
 			 destMap.put("timestamp", (String) srcMap.get("timestamp"));

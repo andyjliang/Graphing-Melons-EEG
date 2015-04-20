@@ -1,10 +1,12 @@
 /**
- * @author anliang
+ * @author Andy Liang
  */
 $(function(){
 	
 	function ButtonViewModel(){
 		var self = this;
+		
+		// click event to load graph
 		self.toggleBackground = function(){
 			$('header').css({
 				'background-image': 'none',
@@ -27,9 +29,11 @@ $(function(){
 		self.ballShiftL = 0;
 		self.pulseShiftL = 0;
 		self.lineShiftL = 0;
+		self.sum = 0;
 		
 		self.points = ko.observableArray(focusObj);
 		
+		// setting line angle
 		self.angle = function(yInd){
 			// Wow I never though I would be using trig again
 			if (yInd +1 == this.points().length) return 0;
@@ -39,15 +43,20 @@ $(function(){
 			return 'rotate(' + r + 'deg)';
 		}
 		
+		// set the animation rules in css keyframe stylesheets
 		self.setKeyFrameMoveLength = function(h, yInd){
 			var w = self.stepWidth;
 			var hyp = Math.sqrt(h*h+w*w);
 			var rule = "@-webkit-keyframes move" + yInd + " {0% { width:0px;} 100% { width:" + hyp + "px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5); }}"
 			var rule2 = "@-moz-keyframes move" + yInd + " {0% { width:0px;} 100% { width:" + hyp + "px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5); }}"
-			if(navigator.userAgent.indexOf("MSIE") > -1) document.styleSheets[0].insertRule(rule, 0);
-			if(navigator.userAgent.indexOf("Mozilla") > -1) document.styleSheets[0].insertRule(rule2, 0);
+			if(navigator.userAgent.indexOf("MSIE") > -1 || navigator.userAgent.indexOf("Chrome") > -1) {
+				document.styleSheets[0].insertRule(rule, 0);
+			} else if(navigator.userAgent.indexOf("Mozilla") > -1) {
+				document.styleSheets[0].insertRule(rule2, 0);
+			}
 		}
 		
+		// horizontal alignment
 		self.leftShiftInc = function(el){
 			var returnEl; 
 			switch(el.className){
@@ -69,8 +78,10 @@ $(function(){
 			return returnEl + 'px';
 		}
 		
+		// vertical alignment 
 		self.bottomShiftInc = function(el, bottomShift){
 			var returnEl; 
+			self.sum += bottomShift;
 			bottomShift = self.scalingFactor * bottomShift;
 			switch(el.className){
 				case 'ball':
@@ -87,23 +98,9 @@ $(function(){
 			}
 			return returnEl + 'px';
 		}
-		
-		// self.someFunc = function(){
-			// document.styleSheets[0].insertRule('@-moz-keyframes {\
-			    // 0%   {width:0px;}\
-			    // 100% {width:150px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5);}\
-			// }',1);
-		// }
-
-//		self.myFunc = function(){
-//			// document.styleSheets[0].cssRules[9].appendRule("0% { width:0px;}");
-//			// document.styleSheets[0].cssRules[9].appendRule("100% { width:100px; box-shadow:0px 0px 5px 1px rgba(0,198,255,0.5);}");
-//			// document.styleSheets[0].insertRule(".line {transform: rotate(-40deg);}",3);
-//			var k = 0; 
-//		}
 	}
 	
-	
+	// on load
 	$(document).ready(function() {
 		ko.applyBindings(new ButtonViewModel(), document.getElementById('graphButton'));
 		ko.applyBindings(new GraphViewModel(), $('#graph')[0]);

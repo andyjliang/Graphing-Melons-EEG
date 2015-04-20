@@ -30,6 +30,7 @@
 		<script language="JavaScript" src="js/jquery-2.1.1.min.js"></script>
 		<script language="JavaScript" src="js/knockout-3.2.0.js"></script>
 		<script language="JavaScript" src="js/main.js"></script>
+		<script language="JavaScript" src="js/dropdown.js"></script>
 </head>
 <body id="page-top" class="index">
 
@@ -68,7 +69,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="http://andyjliang.github.io/Graphing-Melons-EEG/">Andy Liang</a>
                     </li>
                 </ul>
             </div>
@@ -79,16 +80,31 @@
     <header>
         <div id= "headerContainer" class="container">
             <div class="intro-text">
-                <div class="intro-lead-in cover">Think Brightly!</p></div>
-                <div class="intro-heading cover">See Focus</p></div>
-                <button id="graphButton" data-bind="click: toggleBackground" class="page-scroll btn btn-xl cover">view</button>
-            </div>
-        </div>
+                <div class="intro-lead-in">Think Brightly!</p></div>
+                <div class="intro-heading">See Focus</p></div>
+                <div class="btn-group">
+				  <button type="button" class="page-scroll btn btn-default btn-xl dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				    View <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li id="graphButton" class="dropdown-item" data-bind="click: toggleBackground"><a href="#">Hrt85AC1L7</a></li>
+				  </ul>
+				</div>
+            </div>	
+         </div>
     </header>
+    
     
     <!-- Main -->
     <div class="content">
 	  <div id="graph">
+	  
+	  	  <!-- Threshold line -->
+    	  <div class="threshold"></div>
+    	  
+
+            
+    	  <!-- Graph line -->
 		  <div data-bind="foreach: points">
 		  	
 		  		<!-- Ball Structure -->
@@ -98,7 +114,7 @@
 		    			bottom: $parent.bottomShiftInc($element, focus1), 
 		    			MozAnimationDelay: $index() * .1 + 's'
 		    		}">
-		        	<a href="#"><small data-bind="text: timestamp"></small></a>
+		        	<a href="#"><small data-bind="text: timestamp + 'quality: ' + dataQuality"></small></a>
 		        </div>
 		        
 		        <!-- Pulse Structure -->
@@ -117,7 +133,29 @@
 		    		}" ></div>
 		    	
 		  </div>
-	  
+		  
+		      	  <!-- Graph banner -->
+    	  <div class="navbar-header page-scroll banner">
+                <a class="navbar-brand page-scroll score-report" href="http://www.thinkmelon.com/">
+				Great Job Focusing! 
+				<br/><br/>
+				Your Concentration Score is: 
+				<br/><br/>
+				<i class="score" data-bind="text:sum.toFixed(2)"></i>
+				</a>
+           </div>
+           
+           <!-- Share -->
+           <a class="share" href="https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/9NGBG29fse4">
+           J'Amazing!
+           <br/>
+           <i class="share-small">
+           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Click here
+           <br/>
+           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+           Share Your Results!
+           </i>
+           </a>
 	 	</div>
 	 </div>
 </body>
